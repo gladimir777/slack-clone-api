@@ -1,6 +1,6 @@
 import Sequelize from "sequelize";
 
-const sequelize = new Sequelize("slackdabase", "root", "root", {
+const sequelize = new Sequelize("slackdatabase", "root", "root", {
   host: "localhost",
   dialect: "mysql",
 });
