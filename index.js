@@ -2,8 +2,8 @@ import express from "express";
 import bodyParser from "body-parser";
 import { graphqlExpress, graphiqlExpress } from "apollo-server-express";
 import { makeExecutableSchema } from "graphql-tools";
-import { typeDefs } from "./typeDefs";
-import { resolvers } from "./resolvers";
+import typeDefs from "./typeDefs";
+import resolvers from "./resolvers";
 
 import models from "./models";
 
@@ -26,7 +26,11 @@ models.sequelize
 const app = express();
 
 // The GraphQL endpoint
-app.use("/graphql", bodyParser.json(), graphqlExpress({ schema }));
+app.use(
+  "/graphql",
+  bodyParser.json(),
+  graphqlExpress({ schema, context: { models } })
+);
 
 // GraphiQL, a visual editor for queries
 app.use("/graphiql", graphiqlExpress({ endpointURL: "/graphql" }));

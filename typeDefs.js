@@ -1,31 +1,6 @@
-export const typeDefs = `
-type Team{
-  owner:User!,
-  members:[User!]!
-  channels:[Channel!]!,
-  name:String!
-}
+import path from "path";
+import { fileLoader, mergeTypes } from "merge-graphql-schemas";
 
-type User{
-  id:Int!,
-  username:String!,
-  email:String!,
-  teams:[Team!]!
-}
+const typesArray = fileLoader(path.join(__dirname, "./schemas"));
 
-type Channel{
-  id:Int!,
-  name:String!,
-  users:[User!]!,
-  public:Boolean
-}
-
-type Mesage{
-  id:Int!,
-  text:String!,
-  user:User!,
-  Channel:Channel!
-}
-  type Query { books: [Book] }
-  type Book { title: String, author: String }
-`;
+export default mergeTypes(typesArray, { all: true });
